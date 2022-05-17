@@ -1,2 +1,16 @@
 *.class
 *.log
+
+# Build artifacts
+target
+
+# Intellij IDEA files
+*.ipr
+*.iws
+*.iml
+*.idea
+workspace.xml
+graphs.xml
+graphs-build.xml
+*.sc
+.bsp
