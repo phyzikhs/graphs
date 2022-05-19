@@ -1,18 +1,20 @@
 package com.maths.graphs
 package elements
-
+/** Edge types for each type of the graph */
 sealed trait Edge {
   val v1: Vertex
   val v2: Vertex
 
-  def == (e: Edge): Boolean
+  def ==(e: Edge): Boolean
 
   override def equals(obj: Any): Boolean = {
     obj match {
       case e: Edge => e match {
-        case l: Loop      => l == this
-        case w: Weighted  => w == this
-        case d: Directed => d == this
+        case dwl: DiWeightedLoop => dwl == this
+        case wl: DiWeightedLoop  => wl == this
+        case l: Loop             => l == this
+        case w: Weighted         => w == this
+        case d: Directed         => d == this
       }
       case _ => false
     }
@@ -61,8 +63,8 @@ case class DiWeightedLoop(
 
 /** Un-directed, weighted edge */
 case class Weighted(v1: Vertex,
-                  v2: Vertex,
-                  weight: Double)
+                    v2: Vertex,
+                    weight: Double)
   extends Edge {
 
   override def ==(e: Edge): Boolean = {
@@ -75,10 +77,10 @@ case class Weighted(v1: Vertex,
 
 /** Directed, weighted edge */
 case class DiWeighted(
-                           override val v1: Vertex,
-                           override val v2: Vertex,
-                           override val weight: Double,
-                           direction: EdgeDirection.type)
+                       override val v1: Vertex,
+                       override val v2: Vertex,
+                       override val weight: Double,
+                       direction: EdgeDirection.type)
   extends Weighted(v1, v2, weight) {
 
   override def ==(e: Edge): Boolean = {
@@ -91,8 +93,8 @@ case class DiWeighted(
 
 /** Directed edge */
 case class Directed(v1: Vertex,
-                     v2: Vertex,
-                     direction: EdgeDirection.type)
+                    v2: Vertex,
+                    direction: EdgeDirection.type)
   extends Edge {
 
   override def ==(e: Edge): Boolean = {
